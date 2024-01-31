@@ -1,0 +1,552 @@
+2024-01-30 12:14:15,467 [INFO] - Login API called
+2024-01-30 12:14:15,632 [INFO] - Login successful for user admin789
+2024-01-30 12:14:21,831 [INFO] - Login API called
+2024-01-30 12:14:21,839 [WARNING] - Invalid credentials for user admin789
+2024-01-30 12:14:25,386 [INFO] - Login API called
+2024-01-30 12:14:25,394 [INFO] - Login successful for user admin789
+2024-01-30 12:17:38,715 [INFO] - Login API called
+2024-01-30 12:17:38,999 [INFO] - Login successful for user admin789
+2024-01-30 12:19:43,306 [INFO] - Login API called
+2024-01-30 12:19:43,707 [WARNING] - Invalid credentials for user admin789
+2024-01-30 12:20:00,195 [INFO] - Login API called
+2024-01-30 12:20:00,195 [INFO] - Login successful for user admin789
+2024-01-30 12:21:07,111 [INFO] - Get Weekly Reports API called
+2024-01-30 12:21:13,148 [INFO] - Get Quarterly Reports API called
+2024-01-30 12:21:19,355 [INFO] - Get User Stats API called
+2024-01-30 12:21:28,019 [INFO] - Modify Password API called
+2024-01-30 12:21:28,035 [INFO] - Password modified successfully for employee_id: admin789
+2024-01-30 12:21:35,109 [INFO] - Get Pending Reports API called
+2024-01-30 12:21:35,109 [ERROR] - An error occurred in Get Pending Reports API: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+2024-01-30 12:21:45,258 [INFO] - Change Pending Report Status API called
+2024-01-30 12:24:40,765 [INFO] - Login API called
+2024-01-30 12:24:40,910 [INFO] - Login successful for user admin789
+2024-01-30 12:24:49,852 [INFO] - Modify Admin password API called
+2024-01-30 12:24:57,497 [INFO] - Get Pending Reports API called
+2024-01-30 12:25:12,094 [INFO] - Logout API called
+2024-01-30 12:25:12,094 [INFO] - Logout successful for user <flask_login.mixins.AnonymousUserMixin object at 0x000002C25D8B1670>
+2024-01-30 12:27:47,864 [INFO] - Get Pending Reports API called
+2024-01-30 12:27:47,872 [ERROR] - An error occurred in Get Pending Reports API: 'AnonymousUserMixin' object has no attribute 'employee_id'
+2024-01-30 12:27:56,054 [INFO] - Login API called
+2024-01-30 12:27:56,062 [INFO] - Login successful for user admin789
+2024-01-30 12:28:02,979 [INFO] - Get Pending Reports API called
+2024-01-30 12:42:59,712 [INFO] - Get Pending Reports API called
+2024-01-30 12:42:59,872 [INFO] - Get Pending Reports API called
+2024-01-30 12:46:34,484 [INFO] - Logout API called
+2024-01-30 12:46:34,484 [INFO] - Logout successful for user <flask_login.mixins.AnonymousUserMixin object at 0x00000255F3D407D0>
+2024-01-30 13:02:29,106 [INFO] - Login API called
+2024-01-30 13:02:29,174 [INFO] - Login successful for user admin789
+2024-01-30 13:02:33,904 [INFO] - Get Pending Reports API called
+2024-01-30 13:02:33,916 [INFO] - Get Pending Reports API called
+2024-01-30 13:02:46,400 [INFO] - Modify Admin password API called
+2024-01-30 13:02:46,404 [WARNING] - Invalid credentials or old password does not match
+2024-01-30 13:02:57,223 [INFO] - Modify Admin password API called
+2024-01-30 13:02:57,227 [INFO] - Admin password successfully updated
+2024-01-30 13:03:10,026 [INFO] - Logout API called
+2024-01-30 13:03:10,026 [INFO] - Logout successful for user <flask_login.mixins.AnonymousUserMixin object at 0x000001E7E2B25F40>
+2024-01-30 13:03:50,711 [INFO] - Login API called
+2024-01-30 13:03:50,713 [INFO] - Login successful for user 1234
+2024-01-30 13:03:55,339 [INFO] - Modify Admin password API called
+2024-01-30 13:04:18,493 [INFO] - Login API called
+2024-01-30 13:04:18,495 [INFO] - Login successful for user 1234
+2024-01-30 13:04:25,202 [INFO] - Modify Admin password API called
+2024-01-30 13:05:21,311 [INFO] - Logout API called
+2024-01-30 13:05:21,311 [INFO] - Logout successful for user <flask_login.mixins.AnonymousUserMixin object at 0x000001E7E2B276B0>
+2024-01-30 13:05:40,384 [INFO] - Login API called
+2024-01-30 13:05:40,392 [WARNING] - Invalid credentials for user admin789
+2024-01-30 13:05:48,034 [INFO] - Login API called
+2024-01-30 13:05:48,034 [INFO] - Login successful for user admin789
+2024-01-30 13:06:00,803 [INFO] - Modify Admin password API called
+2024-01-30 13:06:00,803 [INFO] - Admin password successfully updated
+2024-01-30 13:27:26,964 [INFO] - Get Weekly Reports API called
+2024-01-30 13:27:26,965 [WARNING] - Unauthorized, only Super User and Admins can get weekly reports
+2024-01-30 13:27:35,225 [INFO] - Login API called
+2024-01-30 13:27:35,227 [WARNING] - Invalid credentials for user admin789
+2024-01-30 13:27:39,712 [INFO] - Get Weekly Reports API called
+2024-01-30 13:27:39,712 [WARNING] - Unauthorized, only Super User and Admins can get weekly reports
+2024-01-30 13:28:43,075 [INFO] - Get Weekly Reports API called
+2024-01-30 13:28:43,076 [WARNING] - Unauthorized, only Super User and Admins can get weekly reports
+2024-01-30 13:29:39,013 [INFO] - Get Weekly Reports API called
+2024-01-30 13:29:39,014 [WARNING] - Unauthorized, only Super User and Admins can get weekly reports
+2024-01-30 13:29:56,921 [INFO] - Get Weekly Reports API called
+2024-01-30 13:29:56,937 [INFO] - Weekly report successfully returned
+2024-01-30 13:33:23,266 [INFO] - Get Weekly Reports API called
+2024-01-30 13:33:23,274 [INFO] - Weekly report successfully returned
+2024-01-30 13:33:29,585 [INFO] - Get Quarterly Reports API called
+2024-01-30 13:33:29,591 [INFO] - Quarterly Report successfully returned
+2024-01-30 13:33:33,876 [INFO] - Get User Stats API called
+2024-01-30 13:33:33,876 [WARNING] - Unauthorized, only Super User can get number of users
+2024-01-30 13:33:39,096 [INFO] - Logout API called
+2024-01-30 13:33:39,097 [INFO] - Logout successful for user <flask_login.mixins.AnonymousUserMixin object at 0x000001F517B9CC20>
+2024-01-30 13:34:08,314 [INFO] - Login API called
+2024-01-30 13:34:08,316 [INFO] - Login successful for user 1234
+2024-01-30 13:34:21,845 [INFO] - Get Weekly Reports API called
+2024-01-30 13:34:21,848 [INFO] - Weekly report successfully returned
+2024-01-30 13:34:25,696 [INFO] - Get Quarterly Reports API called
+2024-01-30 13:34:25,698 [INFO] - Quarterly Report successfully returned
+2024-01-30 13:34:29,615 [INFO] - Get User Stats API called
+2024-01-30 13:34:29,622 [INFO] - Number of users successfully returned
+2024-01-30 13:34:35,913 [INFO] - Logout API called
+2024-01-30 13:34:35,913 [INFO] - Logout successful for user <flask_login.mixins.AnonymousUserMixin object at 0x000001F517B9D6D0>
+2024-01-30 14:48:55,447 [INFO] - Login API called
+2024-01-30 14:48:55,453 [INFO] - Login successful for user 1234
+2024-01-30 14:49:01,322 [INFO] - Get User Stats API called
+2024-01-30 14:49:01,324 [INFO] - Number of users successfully returned
+2024-01-30 15:45:12,238 [INFO] - Login API called
+2024-01-30 15:45:12,312 [WARNING] - Invalid credentials for user affdsfds
+2024-01-30 15:45:36,846 [INFO] - Login API called
+2024-01-30 15:45:36,846 [WARNING] - Invalid credentials for user fasdfasd
+2024-01-30 15:46:06,892 [INFO] - Login API called
+2024-01-30 15:46:06,892 [WARNING] - Invalid credentials for user dfasdf
+2024-01-30 15:46:17,779 [INFO] - Login API called
+2024-01-30 15:46:17,795 [WARNING] - Invalid credentials for user admin123
+2024-01-30 15:46:25,486 [INFO] - Login API called
+2024-01-30 15:46:25,486 [WARNING] - Invalid credentials for user admin123
+2024-01-30 15:46:29,149 [INFO] - Login API called
+2024-01-30 15:46:29,149 [INFO] - Login successful for user admin123
+2024-01-30 15:50:00,465 [INFO] - Get Weekly Reports API called
+2024-01-30 15:50:00,489 [INFO] - Weekly report successfully returned
+2024-01-30 15:50:14,891 [INFO] - Login API called
+2024-01-30 15:50:14,899 [INFO] - Login successful for user admin123
+2024-01-30 15:50:19,672 [INFO] - Get Weekly Reports API called
+2024-01-30 15:50:19,680 [INFO] - Weekly report successfully returned
+2024-01-30 15:50:24,870 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:50:24,894 [INFO] - Quarterly Report successfully returned
+2024-01-30 15:50:55,825 [INFO] - Login API called
+2024-01-30 15:50:55,833 [INFO] - Login successful for user admin123
+2024-01-30 15:52:20,235 [INFO] - Get Weekly Reports API called
+2024-01-30 15:52:20,498 [INFO] - Weekly report successfully returned
+2024-01-30 15:52:39,191 [INFO] - Get Weekly Reports API called
+2024-01-30 15:52:39,191 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:52:39,226 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 15:52:39,369 [INFO] - Weekly report successfully returned
+2024-01-30 15:53:32,182 [INFO] - Get Weekly Reports API called
+2024-01-30 15:53:32,182 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:53:32,197 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 15:53:32,207 [INFO] - Weekly report successfully returned
+2024-01-30 15:53:51,220 [INFO] - Get Weekly Reports API called
+2024-01-30 15:53:51,228 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:53:51,228 [INFO] - Weekly report successfully returned
+2024-01-30 15:53:51,228 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 15:54:23,700 [INFO] - Get Weekly Reports API called
+2024-01-30 15:54:23,700 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:54:23,850 [INFO] - Weekly report successfully returned
+2024-01-30 15:54:23,850 [INFO] - Quarterly Report successfully returned
+2024-01-30 15:54:24,035 [INFO] - Get Weekly Reports API called
+2024-01-30 15:54:24,035 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:54:24,051 [INFO] - Weekly report successfully returned
+2024-01-30 15:54:24,051 [INFO] - Quarterly Report successfully returned
+2024-01-30 15:55:08,039 [INFO] - Get Weekly Reports API called
+2024-01-30 15:55:08,039 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:55:08,063 [INFO] - Weekly report successfully returned
+2024-01-30 15:55:08,063 [INFO] - Quarterly Report successfully returned
+2024-01-30 15:58:01,154 [INFO] - Login API called
+2024-01-30 15:58:01,173 [WARNING] - Invalid credentials for user Admin123
+2024-01-30 15:58:11,574 [INFO] - Login API called
+2024-01-30 15:58:11,589 [INFO] - Login successful for user admin123
+2024-01-30 15:58:11,656 [INFO] - Get Weekly Reports API called
+2024-01-30 15:58:11,669 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:58:11,669 [INFO] - Weekly report successfully returned
+2024-01-30 15:58:11,685 [INFO] - Quarterly Report successfully returned
+2024-01-30 15:58:21,602 [INFO] - Get Weekly Reports API called
+2024-01-30 15:58:21,602 [INFO] - Weekly report successfully returned
+2024-01-30 15:58:21,623 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:58:21,643 [INFO] - Quarterly Report successfully returned
+2024-01-30 15:58:53,301 [INFO] - Get Weekly Reports API called
+2024-01-30 15:58:53,301 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:58:53,327 [INFO] - Weekly report successfully returned
+2024-01-30 15:58:53,340 [INFO] - Quarterly Report successfully returned
+2024-01-30 15:59:01,822 [INFO] - Get Weekly Reports API called
+2024-01-30 15:59:01,835 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:59:01,850 [INFO] - Weekly report successfully returned
+2024-01-30 15:59:01,858 [INFO] - Quarterly Report successfully returned
+2024-01-30 15:59:23,871 [INFO] - Get Weekly Reports API called
+2024-01-30 15:59:23,887 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:59:23,902 [INFO] - Weekly report successfully returned
+2024-01-30 15:59:23,909 [INFO] - Quarterly Report successfully returned
+2024-01-30 15:59:24,682 [INFO] - Get Weekly Reports API called
+2024-01-30 15:59:24,682 [INFO] - Get Quarterly Reports API called
+2024-01-30 15:59:24,688 [INFO] - Weekly report successfully returned
+2024-01-30 15:59:24,696 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:00:45,249 [INFO] - Get Weekly Reports API called
+2024-01-30 16:00:45,257 [INFO] - Get Quarterly Reports API called
+2024-01-30 16:00:45,275 [INFO] - Weekly report successfully returned
+2024-01-30 16:00:45,275 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:03:57,458 [INFO] - Add Camera API called
+2024-01-30 16:03:57,458 [INFO] - Rtsp link successfully added
+2024-01-30 16:20:09,389 [INFO] - Get Quarterly Reports API called
+2024-01-30 16:20:09,393 [INFO] - Get Weekly Reports API called
+2024-01-30 16:20:09,460 [INFO] - Get Quarterly Reports API called
+2024-01-30 16:20:09,558 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:20:09,558 [INFO] - Weekly report successfully returned
+2024-01-30 16:20:09,558 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:20:10,362 [INFO] - Get Weekly Reports API called
+2024-01-30 16:20:10,377 [INFO] - Weekly report successfully returned
+2024-01-30 16:25:58,563 [INFO] - Get Pending Reports API called
+2024-01-30 16:25:58,587 [INFO] - Get Pending Reports API called
+2024-01-30 16:27:52,109 [INFO] - Logout API called
+2024-01-30 16:27:52,109 [INFO] - Logout successful for user <flask_login.mixins.AnonymousUserMixin object at 0x000001FDCA93CF50>
+2024-01-30 16:35:48,290 [INFO] - Get Quarterly Reports API called
+2024-01-30 16:35:48,306 [INFO] - Get Pending Reports API called
+2024-01-30 16:35:48,481 [ERROR] - An error occurred in Get Pending Reports API: 'AnonymousUserMixin' object has no attribute 'employee_id'
+2024-01-30 16:35:48,481 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:36:53,936 [INFO] - Get Quarterly Reports API called
+2024-01-30 16:36:53,952 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:36:59,923 [INFO] - Get Pending Reports API called
+2024-01-30 16:36:59,923 [INFO] - Get Quarterly Reports API called
+2024-01-30 16:36:59,931 [ERROR] - An error occurred in Get Pending Reports API: 'AnonymousUserMixin' object has no attribute 'employee_id'
+2024-01-30 16:36:59,931 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:37:12,083 [INFO] - Get Weekly Reports API called
+2024-01-30 16:37:12,105 [INFO] - Get Pending Reports API called
+2024-01-30 16:37:12,105 [INFO] - Get Quarterly Reports API called
+2024-01-30 16:37:12,269 [INFO] - Weekly report successfully returned
+2024-01-30 16:37:12,269 [ERROR] - An error occurred in Get Pending Reports API: 'AnonymousUserMixin' object has no attribute 'employee_id'
+2024-01-30 16:37:12,269 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:38:16,153 [INFO] - Get Weekly Reports API called
+2024-01-30 16:38:16,153 [INFO] - Get Quarterly Reports API called
+2024-01-30 16:38:16,182 [INFO] - Weekly report successfully returned
+2024-01-30 16:38:16,191 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:38:28,316 [INFO] - Get Pending Reports API called
+2024-01-30 16:38:28,324 [ERROR] - An error occurred in Get Pending Reports API: 'AnonymousUserMixin' object has no attribute 'employee_id'
+2024-01-30 16:38:35,375 [INFO] - Login API called
+2024-01-30 16:38:35,391 [INFO] - Login successful for user admin123
+2024-01-30 16:38:49,012 [INFO] - Get Pending Reports API called
+2024-01-30 16:38:49,028 [INFO] - Get Pending Reports API called
+2024-01-30 16:39:02,828 [INFO] - Get Weekly Reports API called
+2024-01-30 16:39:02,836 [INFO] - Get Quarterly Reports API called
+2024-01-30 16:39:02,844 [INFO] - Weekly report successfully returned
+2024-01-30 16:39:02,844 [INFO] - Get Pending Reports API called
+2024-01-30 16:39:02,864 [INFO] - Quarterly Report successfully returned
+2024-01-30 16:39:02,872 [ERROR] - An error occurred in Get Pending Reports API: 'AnonymousUserMixin' object has no attribute 'employee_id'
+2024-01-30 16:40:03,848 [INFO] - Get Pending Reports API called
+2024-01-30 16:40:03,992 [ERROR] - An error occurred in Get Pending Reports API: SQL expression element or literal value expected, got <AllUsers admin123>.
+2024-01-30 16:40:18,395 [INFO] - Get Pending Reports API called
+2024-01-30 16:40:18,403 [ERROR] - An error occurred in Get Pending Reports API: SQL expression element or literal value expected, got <AllUsers admin123>.
+2024-01-30 16:40:30,995 [INFO] - Get Pending Reports API called
+2024-01-30 16:40:31,187 [INFO] - Get Pending Reports API called
+2024-01-30 16:42:14,376 [INFO] - Get Pending Reports API called
+2024-01-30 16:42:14,392 [INFO] - Get Pending Reports API called
+2024-01-30 16:44:29,006 [INFO] - Get Weekly Reports API called
+2024-01-30 16:44:29,234 [INFO] - Weekly report successfully returned
+2024-01-30 16:46:33,422 [INFO] - Get Weekly Reports API called
+2024-01-30 16:46:33,453 [INFO] - Weekly report successfully returned
+2024-01-30 16:46:37,157 [INFO] - Get Weekly Reports API called
+2024-01-30 16:46:37,173 [INFO] - Weekly report successfully returned
+2024-01-30 16:58:05,652 [INFO] - Get Weekly Reports API called
+2024-01-30 16:58:05,919 [INFO] - Weekly report successfully returned
+2024-01-30 16:59:16,820 [INFO] - Get Weekly Reports API called
+2024-01-30 16:59:17,081 [INFO] - Weekly report successfully returned
+2024-01-30 17:00:06,268 [INFO] - Get Weekly Reports API called
+2024-01-30 17:00:06,288 [INFO] - Weekly report successfully returned
+2024-01-30 17:00:56,656 [INFO] - Get Pending Reports API called
+2024-01-30 17:00:56,672 [INFO] - Get Pending Reports API called
+2024-01-30 17:01:03,036 [INFO] - Logout API called
+2024-01-30 17:01:03,044 [INFO] - Logout successful for user <flask_login.mixins.AnonymousUserMixin object at 0x0000029F1B882840>
+2024-01-30 17:01:20,199 [INFO] - Login API called
+2024-01-30 17:01:20,199 [INFO] - Login successful for user admin123
+2024-01-30 17:01:24,581 [INFO] - Get Pending Reports API called
+2024-01-30 17:01:24,589 [INFO] - Get Pending Reports API called
+2024-01-30 17:01:39,576 [INFO] - Login API called
+2024-01-30 17:01:39,576 [INFO] - Login successful for user admin123
+2024-01-30 17:01:39,609 [INFO] - Get Weekly Reports API called
+2024-01-30 17:01:39,626 [INFO] - Weekly report successfully returned
+2024-01-30 17:01:49,665 [INFO] - Get Weekly Reports API called
+2024-01-30 17:01:49,674 [INFO] - Weekly report successfully returned
+2024-01-30 17:08:22,832 [INFO] - Get Weekly Reports API called
+2024-01-30 17:08:22,991 [INFO] - Weekly report successfully returned
+2024-01-30 17:41:26,795 [INFO] - Get Weekly Reports API called
+2024-01-30 17:41:26,810 [INFO] - Weekly report successfully returned
+2024-01-30 17:46:27,277 [INFO] - Login API called
+2024-01-30 17:46:27,474 [INFO] - Login successful for user admin123
+2024-01-30 17:46:27,496 [INFO] - Get Weekly Reports API called
+2024-01-30 17:46:27,508 [INFO] - Get Quarterly Reports API called
+2024-01-30 17:46:27,508 [INFO] - Weekly report successfully returned
+2024-01-30 17:46:27,590 [INFO] - Quarterly Report successfully returned
+2024-01-30 17:50:19,219 [INFO] - Get Weekly Reports API called
+2024-01-30 17:50:19,219 [INFO] - Get Quarterly Reports API called
+2024-01-30 17:50:19,251 [INFO] - Weekly report successfully returned
+2024-01-30 17:50:19,251 [INFO] - Quarterly Report successfully returned
+2024-01-30 17:53:11,413 [INFO] - Login API called
+2024-01-30 17:53:11,421 [WARNING] - Invalid credentials for user admin123
+2024-01-30 17:53:28,994 [INFO] - Login API called
+2024-01-30 17:53:29,003 [INFO] - Login successful for user admin123
+2024-01-30 17:53:29,020 [INFO] - Get Weekly Reports API called
+2024-01-30 17:53:29,020 [INFO] - Get Quarterly Reports API called
+2024-01-30 17:53:29,028 [INFO] - Weekly report successfully returned
+2024-01-30 17:53:29,044 [INFO] - Quarterly Report successfully returned
+2024-01-30 17:57:42,607 [INFO] - Get Weekly Reports API called
+2024-01-30 17:57:42,607 [INFO] - Get Quarterly Reports API called
+2024-01-30 17:57:42,879 [INFO] - Quarterly Report successfully returned
+2024-01-30 17:57:42,879 [INFO] - Weekly report successfully returned
+2024-01-30 17:58:04,420 [INFO] - Login API called
+2024-01-30 17:58:04,428 [INFO] - Login successful for user admin123
+2024-01-30 17:58:04,454 [INFO] - Get Weekly Reports API called
+2024-01-30 17:58:04,458 [INFO] - Get Quarterly Reports API called
+2024-01-30 17:58:04,458 [INFO] - Weekly report successfully returned
+2024-01-30 17:58:04,471 [INFO] - Quarterly Report successfully returned
+2024-01-30 17:59:43,979 [INFO] - Login API called
+2024-01-30 17:59:43,987 [INFO] - Login successful for user admin123
+2024-01-30 18:00:05,932 [INFO] - Login API called
+2024-01-30 18:00:05,932 [WARNING] - Invalid credentials for user admin12
+2024-01-30 18:00:36,604 [INFO] - Login API called
+2024-01-30 18:00:36,604 [WARNING] - Invalid credentials for user admin123
+2024-01-30 18:00:47,766 [INFO] - Login API called
+2024-01-30 18:00:47,766 [INFO] - Login successful for user admin123
+2024-01-30 18:01:37,930 [INFO] - Login API called
+2024-01-30 18:01:37,945 [INFO] - Login successful for user admin123
+2024-01-30 18:01:37,975 [INFO] - Get Weekly Reports API called
+2024-01-30 18:01:37,975 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:01:37,999 [INFO] - Weekly report successfully returned
+2024-01-30 18:01:38,011 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:02:37,651 [INFO] - Add Camera API called
+2024-01-30 18:02:37,651 [ERROR] - An error occurred in Add Camera API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 18:03:08,676 [INFO] - Add Camera API called
+2024-01-30 18:03:08,676 [INFO] - Rtsp link successfully added
+2024-01-30 18:03:47,623 [INFO] - Login API called
+2024-01-30 18:03:47,820 [INFO] - Login successful for user 1234
+2024-01-30 18:03:47,846 [INFO] - Get Weekly Reports API called
+2024-01-30 18:03:47,861 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:03:47,861 [INFO] - Weekly report successfully returned
+2024-01-30 18:03:47,966 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:05:39,535 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:05:39,535 [INFO] - Get Weekly Reports API called
+2024-01-30 18:05:39,543 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:05:39,543 [INFO] - Weekly report successfully returned
+2024-01-30 18:06:36,266 [INFO] - Login API called
+2024-01-30 18:06:36,273 [WARNING] - Invalid credentials for user 1234
+2024-01-30 18:06:52,627 [INFO] - Login API called
+2024-01-30 18:06:52,641 [INFO] - Login successful for user 1234
+2024-01-30 18:06:52,681 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:06:52,681 [INFO] - Get Weekly Reports API called
+2024-01-30 18:06:52,697 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:06:52,713 [INFO] - Weekly report successfully returned
+2024-01-30 18:08:02,592 [INFO] - Login API called
+2024-01-30 18:08:02,608 [INFO] - Login successful for user 1234
+2024-01-30 18:08:02,645 [INFO] - Get Weekly Reports API called
+2024-01-30 18:08:02,645 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:08:02,664 [INFO] - Weekly report successfully returned
+2024-01-30 18:08:02,664 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:13:49,231 [INFO] - Login API called
+2024-01-30 18:13:49,462 [INFO] - Login successful for user 1234
+2024-01-30 18:13:49,487 [INFO] - Get Weekly Reports API called
+2024-01-30 18:13:49,503 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:13:49,503 [INFO] - Weekly report successfully returned
+2024-01-30 18:13:49,647 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:13:55,959 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:13:55,959 [INFO] - Get Weekly Reports API called
+2024-01-30 18:13:55,981 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:13:55,990 [INFO] - Weekly report successfully returned
+2024-01-30 18:15:39,707 [INFO] - Login API called
+2024-01-30 18:15:39,722 [INFO] - Login successful for user 1234
+2024-01-30 18:15:39,757 [INFO] - Get Weekly Reports API called
+2024-01-30 18:15:39,757 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:15:39,782 [INFO] - Weekly report successfully returned
+2024-01-30 18:15:39,782 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:15:44,509 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:15:44,517 [INFO] - Get Weekly Reports API called
+2024-01-30 18:15:44,517 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:15:44,525 [INFO] - Weekly report successfully returned
+2024-01-30 18:16:45,420 [INFO] - Login API called
+2024-01-30 18:16:45,439 [INFO] - Login successful for user 1234
+2024-01-30 18:16:45,495 [INFO] - Get Weekly Reports API called
+2024-01-30 18:16:45,495 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:16:45,511 [INFO] - Weekly report successfully returned
+2024-01-30 18:16:45,521 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:16:59,793 [INFO] - Get Weekly Reports API called
+2024-01-30 18:16:59,793 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:16:59,818 [INFO] - Weekly report successfully returned
+2024-01-30 18:16:59,818 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:17:13,605 [INFO] - Login API called
+2024-01-30 18:17:13,621 [INFO] - Login successful for user 1234
+2024-01-30 18:17:13,654 [INFO] - Get Weekly Reports API called
+2024-01-30 18:17:13,659 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:17:13,674 [INFO] - Weekly report successfully returned
+2024-01-30 18:17:13,685 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:17:16,192 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:17:16,192 [INFO] - Get Weekly Reports API called
+2024-01-30 18:17:16,208 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:17:16,208 [INFO] - Weekly report successfully returned
+2024-01-30 18:17:18,579 [INFO] - Get Weekly Reports API called
+2024-01-30 18:17:18,594 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:17:18,614 [INFO] - Weekly report successfully returned
+2024-01-30 18:17:18,614 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:18:02,862 [INFO] - Get Weekly Reports API called
+2024-01-30 18:18:02,862 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:18:02,880 [INFO] - Weekly report successfully returned
+2024-01-30 18:18:02,888 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:18:07,898 [INFO] - Get Weekly Reports API called
+2024-01-30 18:18:07,898 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:18:07,920 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:18:07,928 [INFO] - Weekly report successfully returned
+2024-01-30 18:18:52,108 [INFO] - Get Weekly Reports API called
+2024-01-30 18:18:52,108 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:18:52,124 [INFO] - Weekly report successfully returned
+2024-01-30 18:18:52,148 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:23:22,758 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:23:22,758 [INFO] - Get Weekly Reports API called
+2024-01-30 18:23:22,787 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:23:22,795 [INFO] - Weekly report successfully returned
+2024-01-30 18:24:14,990 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:24:14,998 [INFO] - Get Weekly Reports API called
+2024-01-30 18:24:15,014 [INFO] - Quarterly Report successfully returned
+2024-01-30 18:24:15,038 [INFO] - Weekly report successfully returned
+2024-01-30 18:24:37,020 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:24:37,020 [INFO] - Get Weekly Reports API called
+2024-01-30 18:24:37,020 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 18:24:37,303 [INFO] - Weekly report successfully returned
+2024-01-30 18:24:53,900 [INFO] - Login API called
+2024-01-30 18:24:53,916 [INFO] - Login successful for user admin123
+2024-01-30 18:24:53,956 [INFO] - Get Weekly Reports API called
+2024-01-30 18:24:53,956 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:24:53,969 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 18:24:53,969 [INFO] - Weekly report successfully returned
+2024-01-30 18:25:45,314 [INFO] - Login API called
+2024-01-30 18:25:45,314 [INFO] - Login successful for user admin123
+2024-01-30 18:26:54,439 [INFO] - Login API called
+2024-01-30 18:26:54,575 [INFO] - Login successful for user admin123
+2024-01-30 18:27:00,076 [INFO] - Get User Stats API called
+2024-01-30 18:27:00,076 [WARNING] - Unauthorized, only Super User can get number of users
+2024-01-30 18:27:21,519 [INFO] - Login API called
+2024-01-30 18:27:21,527 [INFO] - Login successful for user 1234
+2024-01-30 18:27:26,100 [INFO] - Get User Stats API called
+2024-01-30 18:27:26,116 [INFO] - Number of users successfully returned
+2024-01-30 18:27:31,749 [INFO] - Logout API called
+2024-01-30 18:27:31,749 [INFO] - Logout successful for user <flask_login.mixins.AnonymousUserMixin object at 0x000001CFDDB58590>
+2024-01-30 18:31:07,378 [INFO] - Login API called
+2024-01-30 18:31:07,540 [INFO] - Login successful for user admin123
+2024-01-30 18:31:07,581 [INFO] - Get Weekly Reports API called
+2024-01-30 18:31:07,581 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:31:07,605 [INFO] - Weekly report successfully returned
+2024-01-30 18:31:07,613 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 18:34:53,611 [INFO] - Get Weekly Reports API called
+2024-01-30 18:34:53,611 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:34:53,626 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 18:34:53,689 [INFO] - Weekly report successfully returned
+2024-01-30 18:35:05,882 [INFO] - Login API called
+2024-01-30 18:35:05,898 [INFO] - Login successful for user admin123
+2024-01-30 18:35:05,913 [INFO] - Get Weekly Reports API called
+2024-01-30 18:35:05,913 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:35:05,913 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 18:35:05,926 [INFO] - Weekly report successfully returned
+2024-01-30 18:35:44,675 [INFO] - Login API called
+2024-01-30 18:35:44,740 [INFO] - Login successful for user admin123
+2024-01-30 18:35:44,763 [INFO] - Get Weekly Reports API called
+2024-01-30 18:35:44,778 [INFO] - Weekly report successfully returned
+2024-01-30 18:35:44,778 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:35:44,778 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 18:56:47,878 [INFO] - Login API called
+2024-01-30 18:56:47,956 [INFO] - Login successful for user 1234
+2024-01-30 18:56:47,957 [ERROR] - An error occurred in login API: 'dict' object has no attribute 'set_cookie'
+2024-01-30 18:58:53,917 [INFO] - Login API called
+2024-01-30 18:58:53,996 [INFO] - Login successful for user admin123
+2024-01-30 18:58:54,113 [INFO] - Get Weekly Reports API called
+2024-01-30 18:58:54,113 [INFO] - Weekly report successfully returned
+2024-01-30 18:58:54,450 [INFO] - Get Quarterly Reports API called
+2024-01-30 18:58:54,450 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-30 19:02:10,570 [INFO] - Login API called
+2024-01-30 19:02:10,637 [INFO] - Login successful for user admin123
+2024-01-30 19:02:10,661 [INFO] - Get Weekly Reports API called
+2024-01-30 19:02:10,664 [INFO] - Weekly report successfully returned
+2024-01-30 19:02:10,664 [INFO] - Get Quarterly Reports API called
+2024-01-30 19:02:10,664 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:09:43,048 [INFO] - Get Weekly Reports API called
+2024-01-31 11:09:43,197 [INFO] - Weekly report successfully returned
+2024-01-31 11:09:43,215 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:09:43,215 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:09:58,716 [INFO] - Login API called
+2024-01-31 11:09:58,735 [WARNING] - Invalid credentials for user admin123
+2024-01-31 11:10:04,231 [INFO] - Login API called
+2024-01-31 11:10:04,231 [INFO] - Login successful for user admin123
+2024-01-31 11:10:04,276 [INFO] - Get Weekly Reports API called
+2024-01-31 11:10:04,276 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:10:04,276 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:10:04,294 [INFO] - Weekly report successfully returned
+2024-01-31 11:12:35,698 [INFO] - Login API called
+2024-01-31 11:12:35,706 [INFO] - Login successful for user 1234
+2024-01-31 11:12:44,107 [INFO] - Get User Stats API called
+2024-01-31 11:12:44,115 [INFO] - Number of users successfully returned
+2024-01-31 11:12:54,291 [INFO] - Get Pending Reports API called
+2024-01-31 11:12:54,291 [WARNING] - Unauthorized, only Admins can fetch pending reports
+2024-01-31 11:15:34,499 [INFO] - Login API called
+2024-01-31 11:15:34,506 [INFO] - Login successful for user admin123
+2024-01-31 11:15:34,597 [INFO] - Get Weekly Reports API called
+2024-01-31 11:15:34,613 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:15:34,613 [INFO] - Weekly report successfully returned
+2024-01-31 11:15:34,621 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:17:49,298 [INFO] - Login API called
+2024-01-31 11:17:49,298 [INFO] - Login successful for user admin123
+2024-01-31 11:17:49,467 [INFO] - Get Weekly Reports API called
+2024-01-31 11:17:49,484 [INFO] - Weekly report successfully returned
+2024-01-31 11:17:49,484 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:17:49,499 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:18:44,755 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:18:44,755 [INFO] - Get Weekly Reports API called
+2024-01-31 11:18:44,761 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:18:44,782 [INFO] - Weekly report successfully returned
+2024-01-31 11:18:55,943 [INFO] - Login API called
+2024-01-31 11:18:55,951 [INFO] - Login successful for user admin123
+2024-01-31 11:18:55,989 [INFO] - Get Weekly Reports API called
+2024-01-31 11:18:56,001 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:18:56,007 [INFO] - Weekly report successfully returned
+2024-01-31 11:18:56,019 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:19:58,703 [INFO] - Login API called
+2024-01-31 11:19:58,708 [INFO] - Login successful for user 1234
+2024-01-31 11:19:58,776 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:19:58,776 [INFO] - Get Weekly Reports API called
+2024-01-31 11:19:58,784 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:19:58,800 [INFO] - Weekly report successfully returned
+2024-01-31 11:20:18,943 [INFO] - Login API called
+2024-01-31 11:20:18,943 [INFO] - Login successful for user admin123
+2024-01-31 11:20:18,988 [INFO] - Get Weekly Reports API called
+2024-01-31 11:20:18,988 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:20:19,001 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:20:19,009 [INFO] - Weekly report successfully returned
+2024-01-31 11:20:53,479 [INFO] - Login API called
+2024-01-31 11:20:53,479 [INFO] - Login successful for user admin123
+2024-01-31 11:20:53,741 [INFO] - Get Weekly Reports API called
+2024-01-31 11:20:53,741 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:20:53,749 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:20:53,758 [INFO] - Weekly report successfully returned
+2024-01-31 11:21:21,820 [INFO] - Login API called
+2024-01-31 11:21:21,831 [INFO] - Login successful for user admin123
+2024-01-31 11:21:21,947 [INFO] - Get Weekly Reports API called
+2024-01-31 11:21:21,958 [INFO] - Weekly report successfully returned
+2024-01-31 11:21:21,964 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:21:21,980 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:21:40,485 [INFO] - Login API called
+2024-01-31 11:21:40,485 [INFO] - Login successful for user admin123
+2024-01-31 11:21:40,528 [INFO] - Get Weekly Reports API called
+2024-01-31 11:21:40,541 [INFO] - Get Quarterly Reports API called
+2024-01-31 11:21:40,541 [INFO] - Weekly report successfully returned
+2024-01-31 11:21:40,541 [ERROR] - An error occurred in Get Quarterly Reports API: 'AnonymousUserMixin' object has no attribute 'user_type'
+2024-01-31 11:24:29,446 [INFO] - Login API called
+2024-01-31 11:24:29,670 [INFO] - Login successful for user admin123
+2024-01-31 11:25:05,486 [INFO] - Login API called
+2024-01-31 11:25:05,486 [WARNING] - Invalid credentials for user admin123
+2024-01-31 11:25:11,442 [INFO] - Login API called
+2024-01-31 11:25:11,457 [INFO] - Login successful for user admin123
+2024-01-31 11:25:57,821 [INFO] - Login API called
+2024-01-31 11:25:57,821 [INFO] - Login successful for user admin123
+2024-01-31 11:26:37,643 [INFO] - Login API called
+2024-01-31 11:26:37,738 [INFO] - Login successful for user admin123
+2024-01-31 11:27:12,896 [INFO] - Login API called
+2024-01-31 11:27:12,896 [INFO] - Login successful for user admin123
+2024-01-31 11:29:08,217 [INFO] - Login API called
+2024-01-31 11:29:08,358 [INFO] - Login successful for user admin123
+2024-01-31 11:30:56,747 [INFO] - Login API called
+2024-01-31 11:30:56,763 [INFO] - Login successful for user admin123
+2024-01-31 11:39:48,103 [INFO] - Login API called
+2024-01-31 11:39:48,186 [INFO] - Login successful for user admin123
+2024-01-31 11:42:41,751 [INFO] - Login API called
+2024-01-31 11:42:41,766 [INFO] - Login successful for user admin123
+2024-01-31 11:43:51,398 [INFO] - Login API called
+2024-01-31 11:43:51,400 [WARNING] - Invalid credentials for user admin123
+2024-01-31 11:43:59,866 [INFO] - Login API called
+2024-01-31 11:43:59,866 [INFO] - Login successful for user admin123
+2024-01-31 11:45:23,546 [INFO] - Login API called
+2024-01-31 11:45:23,546 [INFO] - Login successful for user admin123
+2024-01-31 11:56:35,844 [INFO] - Login API called
+2024-01-31 11:56:35,911 [INFO] - Login successful for user admin123
+2024-01-31 11:58:21,709 [INFO] - Login API called
+2024-01-31 11:58:21,776 [INFO] - Login successful for user admin123
+2024-01-31 12:02:58,798 [INFO] - Login API called
+2024-01-31 12:02:58,800 [INFO] - Login successful for user admin123

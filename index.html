@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask App</title>
+</head>
+<body>
+    <h1>Users:</h1>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.username }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Stream</title>
+</head>
+<body>
+    <h1>RTSP Video Stream</h1>
+
+    <form id="rtspForm">
+        <label for="rtspInput">RTSP URL:</label>
+        <input type="text" id="rtspInput" name="rtspInput" required>
+        <button type="button" onclick="startVideo()">Start Video</button>
+    </form>
+
+    <div id="videoContainer">
+        <video id="videoPlayer" width="640" height="480" controls autoplay></video>
+    </div>
+
+    <script>
+        const socket = new WebSocket('ws://127.0.0.1:5000/video_feed');
+
+        socket.onmessage = function (event) {
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.src = 'data:image/jpeg;base64,' + event.data;
+        };
+
+        function startVideo() {
+            const rtspInput = document.getElementById('rtspInput');
+            const rtspUrl = rtspInput.value;
+            console.log(rtspUrl);
+            // Send the RTSP URL to the server
+           socket.send(JSON.stringify({ rtsp: rtspUrl }));
+        }
+    </script>
+</body>
+</html> -->
