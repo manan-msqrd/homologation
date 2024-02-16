@@ -2,18 +2,13 @@ import os
 import json
 import base64
 from flask import request, jsonify, request
-from app import app, db, login_manager, logger
-from app.models import AllUsers, ProcessTable, LoginLog
+from app import app, db, logger, jwt
+from app.models import AllUsers, ProcessTable, LoginLog, FinalTable
 from datetime import datetime, timedelta
-from flask_login import login_user, login_required, logout_user, current_user
 from collections import defaultdict
-from sqlalchemy import func, distinct, case ,and_, or_
-from logging.handlers import RotatingFileHandler 
+from sqlalchemy import func, distinct, case 
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
-
-@login_manager.user_loader
-def load_user(user_id):
-    return AllUsers.query.get(user_id)
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -29,7 +24,16 @@ def login():
         user = AllUsers.query.get(employee_id)
 
         if user and password and user.password == password and user.user_type == user_type:
-            login_user(user, remember=True)
+            access_token = create_access_token(identity=user.employee_id, expires_delta=timedelta(hours=10))
+            
+            # Include the token in the response
+            response = {
+                'access_token': access_token,
+                'message': 'Login successful',
+                'employee_id': employee_id,
+                'name': user.name,
+                'status': True
+            }
 
             if user.user_type == "operator":
                 login_log = LoginLog(user_id=user.employee_id, login_time=datetime.now())
@@ -37,115 +41,58 @@ def login():
                 db.session.commit()
 
             logger.info('Login successful for user {}'.format(employee_id))
-            return json.dumps({'message': 'Login successful', 'employee_id': employee_id, 'name': user.name, 'status': True}), 200
+            return jsonify(response), 200
         else:
             logger.warning('Invalid credentials for user {}'.format(employee_id))
-            return json.dumps({'message': 'Invalid credentials', 'status': False}), 200
+            return jsonify({'message': 'Invalid credentials', 'status': False}), 200
 
     except Exception as e:
         logger.error('An error occurred in login API: {}'.format(str(e)))
         return jsonify({'error': str(e)}), 500
+    
 
-@app.route('/logout', methods=['POST', 'GET'])
-@login_required
+
+@app.route('/logout', methods=['GET'])
+@jwt_required()
 def logout():
     try:
         logger.info('Logout API called')
 
         logout_time = datetime.now()
-        user = current_user
+        user_id = get_jwt_identity()
+
+        user = AllUsers.query.get(user_id)
 
         if user.user_type == "operator":
-            login_log = LoginLog.query.filter_by(user_id=user, logout_time=None).first()
+            login_log = LoginLog.query.filter_by(user_id=user_id, logout_time=None).first()
+            print(login_log)
 
             if login_log:
                 login_log.logout_time = logout_time
                 db.session.commit()
 
-        logout_user()
 
-        logger.info('Logout successful for user {}'.format(user))
-        return jsonify({'message': 'Logout successful'}), 200
+        logger.info('Logout successful for user {}'.format(user_id))
+        return jsonify({'message': 'Logout successful for user id: {}'.format(user_id)}), 200
 
     except Exception as e:
         logger.error('An error occurred in logout API: {}'.format(str(e)))
         return jsonify({'error': str(e)}), 500
     
 
-# @app.route('/report_analysis', methods=['GET'])
-# def report_analysis():
-#     try:
-#         logging.info('Report Analysis API called')
-
-#         data = request.get_json()
-#         json_data = data['report_data']
-#         start_date_str = json_data.get('start_date')
-#         end_date_str = json_data.get('end_date')
-#         query_page = json_data.get('query_page', 1)
-#         per_page = json_data.get('per_page', None)
-
-#         # Parse date strings to datetime objects with the correct format
-#         start_date = datetime.strptime(start_date_str, '%Y-%m-%d %H:%M:%S')
-#         end_date = datetime.strptime(end_date_str, '%Y-%m-%d %H:%M:%S')
-
-#         # Calculate the offset based on the requested page and page size
-#         offset = (query_page - 1) * per_page if per_page else None
-
-#         # Query the database for paginated entries between start_date and end_date
-#         entries = ProcessTable.query.filter(
-#             ProcessTable.date_time.between(start_date, end_date),
-#         ).offset(offset).limit(per_page).all()
-
-#         # Serialize the entries to JSON and group by job_id, vehicle_part, and part_code_name
-#         entries_by_group = defaultdict(lambda: defaultdict(list))
-#         for entry in entries:
-#             entry_data = {
-#                 'id': entry.id,
-#                 'admin_id': entry.admin_id,
-#                 'operator_id': entry.operator_id,
-#                 'date_time': entry.date_time.strftime('%Y-%m-%dT%H:%M:%S'),
-#                 'vehicle_name': entry.vehicle_name,
-#                 'part_code_name': entry.part_code_name,
-#                 'part_code_requirement': entry.part_code_requirement,
-#                 'scan_output': entry.scan_output,
-#                 'result': entry.result,
-#                 'image': base64.b64encode(entry.image).decode('utf-8') if entry.image else None,
-#                 'approve_status': entry.approve_status
-#             }
-#             entries_by_group[entry.job_id][entry.vehicle_part].append(entry_data)
-
-#         # Convert entries_by_group to the desired format
-#         result_data = [
-#             {
-#                 'job_id': job_id,
-#                 'vehicle_parts': [
-#                     {
-#                         'vehicle_part': vehicle_part,
-#                         'vehicle_part_reports': reports
-#                     }
-#                     for vehicle_part, reports in vehicle_parts.items()
-#                 ]
-#             }
-#             for job_id, vehicle_parts in entries_by_group.items()
-#         ][:per_page] 
-
-#         # Query to count the total number of distinct job_ids
-#         total_job_ids = db.session.query(func.count(distinct(ProcessTable.job_id))).scalar()
-
-#         return jsonify({'result': result_data, 'total_job_ids': total_job_ids}), 200
-
-#     except Exception as e:
-#         logging.error('An error occurred in Report Analysis API: {}'.format(str(e)))
-#         return jsonify({'error': str(e)}), 500
     
 
-@app.route('/report_analysis', methods=['GET'])
-@login_required
+@app.route('/report_analysis', methods=['POST'])
+@jwt_required()
 def report_analysis():
     try:
         logger.info('Report Analysis API called')
 
-        if current_user.user_type not in ["admin", "super_user"]:
+        user_id = get_jwt_identity()
+
+        # Check if the user is an admin or super_user
+        user = AllUsers.query.get(user_id)
+        if user.user_type not in ["super_user", "admin"]:
             logger.warning('Unauthorized, only Super User and Admins can add new camera') 
             return jsonify({'message': 'Unauthorized, only Super User and Admins can add new camera'}), 401
 
@@ -157,8 +104,8 @@ def report_analysis():
         per_page = json_data.get('per_page', None)
 
         # Parse date strings to datetime objects with the correct format
-        start_date = datetime.strptime(start_date_str, '%Y-%m-%d %H:%M:%S')
-        end_date = datetime.strptime(end_date_str, '%Y-%m-%d %H:%M:%S')
+        start_date = datetime.strptime(start_date_str, '%Y-%m-%d %H:%M')
+        end_date = datetime.strptime(end_date_str, '%Y-%m-%d %H:%M')
 
         # Calculate the offset based on the requested page and page size
         offset = (query_page - 1) * per_page if per_page else None
@@ -177,15 +124,13 @@ def report_analysis():
             ProcessTable.date_time.between(start_date, end_date),
         ).all()
 
-        # Serialize the entries to JSON and group by job_id, vehicle_part, and part_code_name
-        entries_by_group = defaultdict(lambda: defaultdict(list))
+        entries_by_group = defaultdict(lambda: {'date_time': '', 'vehicle_name': '', 'vehicle_parts': defaultdict(list)})
+
         for entry in entries:
             entry_data = {
                 'id': entry.id,
                 'admin_id': entry.admin_id,
                 'operator_id': entry.operator_id,
-                'date_time': entry.date_time.strftime('%Y-%m-%dT%H:%M:%S'),
-                'vehicle_name': entry.vehicle_name,
                 'part_code_name': entry.part_code_name,
                 'part_code_requirement': entry.part_code_requirement,
                 'scan_output': entry.scan_output,
@@ -193,25 +138,19 @@ def report_analysis():
                 'image': base64.b64encode(entry.image).decode('utf-8') if entry.image else None,
                 'approve_status': entry.approve_status
             }
-            entries_by_group[entry.job_id][entry.vehicle_part].append(entry_data)
+
+            entries_by_group[entry.job_id]['job_id'] = entry.job_id
+            entries_by_group[entry.job_id]['date_time'] = entry.date_time  # Corrected line
+            entries_by_group[entry.job_id]['vehicle_name'] = entry.vehicle_name
+            entries_by_group[entry.job_id]['vehicle_parts'][entry.vehicle_part].append(entry_data)
 
         # Convert entries_by_group to the desired format
-        result_data = [
-            {
-                'job_id': job_id,
-                'vehicle_parts': [
-                    {
-                        'vehicle_part': vehicle_part,
-                        'vehicle_part_reports': reports
-                    }
-                    for vehicle_part, reports in vehicle_parts.items()
-                ]
-            }
-            for job_id, vehicle_parts in entries_by_group.items()
-        ]
+        result_data = list(entries_by_group.values())
 
         # Query to count the total number of distinct job_ids
-        total_job_ids = db.session.query(func.count(distinct(ProcessTable.job_id))).scalar()
+        total_job_ids = db.session.query(func.count(distinct(ProcessTable.job_id))).filter(
+            ProcessTable.date_time.between(start_date, end_date)
+        ).scalar()
 
         logger.info('Report Analysis API successfully processed')
         return jsonify({'result': result_data, 'total_job_ids': total_job_ids}), 200
@@ -220,20 +159,108 @@ def report_analysis():
         logger.error('An error occurred in Report Analysis API: {}'.format(str(e)))
         return jsonify({'error': str(e)}), 500
 
+        # # Serialize the entries to JSON and group by job_id, vehicle_part, and part_code_name
+        # entries_by_group = defaultdict(lambda: defaultdict(list))
+        # for entry in entries:
+        #     entry_data = {
+        #         'id': entry.id,
+        #         'admin_id': entry.admin_id,
+        #         'operator_id': entry.operator_id,
+        #         'date_time': entry.date_time.strftime('%Y-%m-%dT%H:%M'),
+        #         'vehicle_name': entry.vehicle_name,
+        #         'part_code_name': entry.part_code_name,
+        #         'part_code_requirement': entry.part_code_requirement,
+        #         'scan_output': entry.scan_output,
+        #         'result': entry.result,
+        #         'image': base64.b64encode(entry.image).decode('utf-8') if entry.image else None,
+        #         'approve_status': entry.approve_status
+        #     }
+        #     entries_by_group[entry.job_id][entry.vehicle_part].append(entry_data)
+
+        # # Convert entries_by_group to the desired format
+        # result_data = [
+        #     {
+        #         'job_id': job_id,
+        #         'vehicle_parts': [
+        #             {
+        #                 'vehicle_part': vehicle_part,
+        #                 'vehicle_part_reports': reports
+        #             }
+        #             for vehicle_part, reports in vehicle_parts.items()
+        #         ]
+        #     }
+        #     for job_id, vehicle_parts in entries_by_group.items()
+        # ]
+
+
+@app.route('/report_analysis_by_job_id', methods=['POST'])
+@jwt_required()
+def get_entries_by_job_id():
+    try:
+        logger.info('Report Analysis by Job Id API called')
+
+        user_id = get_jwt_identity()
+
+        # Check if the user is an admin or super_user
+        user = AllUsers.query.get(user_id)
+        if user.user_type not in ["super_user", "admin"]:
+            logger.warning('Unauthorized, only Super User and Admins can get Report Analysis by Job Id') 
+            return jsonify({'message': 'Unauthorized, only Super User and Admins can get Report Analysis by Job Id'}), 401
+
+        data = request.json
+
+        entries = ProcessTable.query.filter_by(job_id=data['jobID']).all()
+        if not entries:
+            return jsonify({'message': 'No entries found for the specified job_id'})
+
+        # Use a dictionary to group entries by vehicle_part
+        grouped_entries = {}
+        for entry in entries:
+            entry_data = {
+                'id': entry.id,
+                'job_id': entry.job_id,
+                'admin_id': entry.admin_id,
+                'operator_id': entry.operator_id,
+                'date_time': entry.date_time,
+                'vehicle_name': entry.vehicle_name,
+                'vehicle_part': entry.vehicle_part,
+                'part_code_name': entry.part_code_name,
+                'part_code_requirement': entry.part_code_requirement,
+                'scan_output': entry.scan_output,
+                'result': entry.result,
+                'image': base64.b64encode(entry.image).decode('utf-8') if entry.image else None,
+                'approve_status': entry.approve_status
+            }
+            
+            if entry.vehicle_part not in grouped_entries:
+                grouped_entries[entry.vehicle_part] = []
+            
+            grouped_entries[entry.vehicle_part].append(entry_data)
+
+        return jsonify({'entries': grouped_entries, 'status': True}), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 # Add New Camera rtsp as json
 @app.route('/add_camera', methods=['POST'])
-@login_required
+@jwt_required()
 def add_camera():
     try:
         logger.info('Add Camera API called')
 
-        # if current_user.user_type not in ["admin", "super_user"]:
-        #     logger.warning('Unauthorized, only Super User and Admins can add new camera') 
-        #     return jsonify({'message': 'Unauthorized, only Super User and Admins can add new camera'}), 401
+        # Obtain user identity from the JWT
+        user_id = get_jwt_identity()
+
+        # Check if the user is an admin or super_user
+        user = AllUsers.query.get(user_id)
+        if user.user_type not in ["super_user", "admin"]:
+            logger.warning('Unauthorized, only Super User and Admins can add new camera') 
+            return jsonify({'message': 'Unauthorized, only Super User and Admins can add new camera'}), 401
 
         data = request.json
-        json_info = data['cam_details']
+        json_info = data['camDetails']
         camera_ip = json_info.get('camIP')
         user_id = json_info.get('userId')
         password = json_info.get('password')
@@ -262,21 +289,27 @@ def add_camera():
 
 
 
-############################# SUPER USER ##################################
-################################ APIS #####################################
+# ############################# SUPER USER ##################################
+# ################################ APIS #####################################
 
 # User Registration
 @app.route('/registration', methods=['POST'])
+@jwt_required()
 def register_user():
     try:
         logger.info('Registration API called')
 
-        # if current_user.user_type != "super_user":
-        #     logger.warning('Unauthorized, only Super User can registers new users') 
-        #     return jsonify({'message': 'Unauthorized, only Super User can registers new users'}), 401
+        # Obtain user identity from the JWT
+        user_id = get_jwt_identity()
+
+        # Check if the user is super_user
+        user = AllUsers.query.get(user_id)
+        if user.user_type != "super_user":
+            logger.warning('Unauthorized, only Super User can registers new users') 
+            return jsonify({'message': 'Unauthorized, only Super User can registers new users'}), 401
 
         data = request.json
-        json_data = data['user_data']
+        json_data = data['data']
 
         # Check if 'employee_id', 'name', 'designation', 'password', and 'user_type' are in the request data
         if 'employee_id' not in json_data or 'name' not in json_data or 'password' not in json_data or 'user_type' not in json_data:
@@ -299,7 +332,7 @@ def register_user():
         db.session.commit()
 
         logger.info('User registration successful for employee_id: {}'.format(json_data['employee_id']))
-        return jsonify({'message': 'User registration successful'}), 201
+        return jsonify({'message': 'User registration successful', 'status': True}), 201
 
     except Exception as e:
         logger.error('An error occurred in registration API: {}'.format(str(e)))
@@ -308,17 +341,20 @@ def register_user():
 
 # Modify Admin/Operator Password
 @app.route('/modify_password', methods=['PUT'])
-@login_required
+@jwt_required()
 def modify_password():
     try:
         logger.info('Modify Password API called')
+        user_id = get_jwt_identity()
 
-        if current_user.user_type != "super_user":
+        user = AllUsers.query.get(user_id)
+
+        if user and user.user_type != "super_user":
             logger.warning('Unauthorized, only Super User can modify passwords') 
             return jsonify({'message': 'Unauthorized, only Super User can modify passwords'}), 401
 
-        data = request.json
-
+        json_data = request.json
+        data = json_data['data']
         # Check if 'employee_id' and 'new_password' are in the request data
         employee_id = data.get('employee_id')
         new_password = data.get('new_password')
@@ -335,7 +371,7 @@ def modify_password():
             db.session.commit()
 
             logger.info('Password modified successfully for employee_id: {}'.format(employee_id))
-            return jsonify({'message': 'Password modified successfully'}), 200
+            return jsonify({'message': 'Password modified successfully', 'status': True}), 200
         else:
             logger.warning('User not found for Modify Password API - employee_id: {}'.format(employee_id))
             return jsonify({'error': 'User not found'}), 404
@@ -346,16 +382,21 @@ def modify_password():
 
 
 # Number of Users API
-@app.route('/number_of_users', methods=['GET'])
-@login_required
+@app.route('/number_of_users', methods=['GET', 'POST'])
+@jwt_required()
 def get_user_stats():
     try:
         logger.info('Get User Stats API called')
 
-        if current_user.user_type != "super_user":
-            logger.warning('Unauthorized, only Super User can get number of users') 
-            return jsonify({'message': 'Unauthorized, only Super User can get number of users'}), 401
+        # Obtain user identity from the JWT
+        user_id = get_jwt_identity()
 
+        # Check if the user is an admin or super_user
+        user = AllUsers.query.get(user_id)
+        if user.user_type != "super_user":
+            logger.warning('Unauthorized, only Super User and Admins can get number of users') 
+            return jsonify({'message': 'Unauthorized, only Super User and Admins can get number of users'}), 401
+        
         operators_count = AllUsers.query.filter_by(user_type='operator').count()
         admins_count = AllUsers.query.filter_by(user_type='admin').count()
 
@@ -369,12 +410,17 @@ def get_user_stats():
 
 # Weekly graph report
 @app.route('/weekly_report', methods=['GET'])
-@login_required
+@jwt_required()
 def weekly_report():
     try:
         logger.info('Get Weekly Reports API called')
-        print(current_user)
-        if current_user.is_authenticated and current_user.user_type not in ["admin", "super_user"]:
+
+        # Obtain user identity from the JWT
+        user_id = get_jwt_identity()
+
+        # Check if the user is an admin or super_user
+        user = AllUsers.query.get(user_id)
+        if user and user.user_type not in ["admin", "super_user"]:
             logger.warning('Unauthorized, only Super User and Admins can get weekly reports') 
             return jsonify({'message': 'Unauthorized, only Super User and Admins can get weekly reports'}), 401
 
@@ -414,64 +460,61 @@ def weekly_report():
     except Exception as e:
         logger.error('An error occurred in Get Weekly Reports API: {}'.format(str(e)))
         return jsonify({'error': str(e)}), 500
-
     
-
-# Quarterly report
 @app.route('/quarterly_report', methods=['GET'])
-@login_required
+@jwt_required()
 def quarterly_report():
     try:
-        logger.info('Get Quarterly Reports API called')
-        print(current_user.user_type)
-        # Check if the current user is an admin
-        if current_user.is_authenticated and current_user.user_type not in ["admin", "super_user"]:
-            logger.warning('Unauthorized, only Super User and Admins can get weekly reports') 
-            return jsonify({'message': 'Unauthorized, only Super User and Admins can get weekly reports'}), 401
+        logger.info('Quarterly Reports API called')
 
-        # Calculate the start date of the current quarter
+        user_id = get_jwt_identity()
+
+        user = AllUsers.query.get(user_id)
+        if user and user.user_type not in ["admin", "super_user"]:
+            return jsonify({'message': 'Unauthorized, only Super User and Admins can get quarterly reports'}), 401
+        
         now = datetime.now()
-        start_date = now.replace(month=1, day=1)  # Start of the year
-        start_date += timedelta(days=90 * ((now.month - 1) // 3))  # Move to the start of the current quarter
+        start_date = now.replace(month=1, day=1)
+        start_date += timedelta(days=90 * ((now.month - 1) // 3))
 
-        # Query the database for the count of approved and rejected entries in the current quarter
         quarterly_counts = db.session.query(
             func.count().label('total'),
             func.sum(case((ProcessTable.approve_status == 'Approved', 1), else_=0)).label('Approved'),
-            func.sum(case((ProcessTable.approve_status == 'Rejected', 1), else_=0)).label('Rejected'),
-            func.sum(case((ProcessTable.approve_status == 'Pending', 1), else_=0)).label('Pending')
+            func.sum(case((ProcessTable.approve_status == 'Rejected', 1), else_=0)).label('Rejected')
         ).filter(
             ProcessTable.date_time >= start_date,
-            ProcessTable.approve_status.in_(['Approved', 'Rejected', 'Pending'])
+            ProcessTable.approve_status.in_(['Approved', 'Rejected'])
         ).first()
-
-        logger.info('Quarterly Report successfully returned')
         return jsonify({
             'quarterly_report': {
                 'approved': quarterly_counts.Approved,
                 'rejected': quarterly_counts.Rejected,
-                'pending': quarterly_counts.Pending
             }
         })
-
     except Exception as e:
-        logger.error('An error occurred in Get Quarterly Reports API: {}'.format(str(e)))
         return jsonify({'error': str(e)}), 500
+
+
     
 
-############################# ADMIN ####################################
-############################# APIS #####################################
+# ############################# ADMIN ####################################
+# ############################# APIS #####################################
 
 
 # API endpoint to get entries with 'Pending' approve_status and update approval status
 @app.route('/pending_status_change', methods=['PUT'])
-@login_required
+@jwt_required()
 def pending_status_change():
     try:
         logger.info('Change Pending Report Status API called')
 
-        # Check if the current user is an admin
-        if current_user.user_type != "admin":
+        user_id = get_jwt_identity()
+
+        # Check if the user is an admin or super_user
+        user = AllUsers.query.get(user_id)
+
+        # Add your custom authorization check here
+        if user and user.user_type != "admin":
             logger.warning('Unauthorized, only Admins can modify status') 
             return jsonify({'message': 'Unauthorized, only Admins can modify status'}), 401
 
@@ -488,21 +531,12 @@ def pending_status_change():
         # Commit the changes to the database
         db.session.commit()
 
-        # # Retrieve the entry by ID
-        # entry = ProcessTable.query.get(entry_id)
-
-        # # Update the approve_status
-        # if entry:
-        #     entry.approve_status = new_status
-        #     db.session.commit()
-        #     return jsonify({'message': f'Approval status updated for entry with ID {entry_id}'})
-
         if updated_rows > 0:
             logger.info('Report Status updated successfully')
             return jsonify({'message': f'Approval status updated for entry with ID {entry_id}'}), 200
         else:
             logger.warning('Report not found')
-            return jsonify({'error': f'Entry with ID {entry_id} not found'}), 404
+            return jsonify({'error': f'Entry with ID {entry_id} not found', 'status': True}), 404
 
     except Exception as e:
         logger.error('An error occurred in Changing Status API: {}'.format(str(e)))
@@ -510,87 +544,88 @@ def pending_status_change():
 
 
 # Pending Admin Reports
+from collections import defaultdict
+
 @app.route('/get_pending_reports', methods=['GET'])
-@login_required
+@jwt_required()
 def get_pending_reports():
     try:
         logger.info('Get Pending Reports API called')
-        print(current_user)
+
+        user_id = get_jwt_identity()
+
+        # Check if the user is an admin or super_user
+        user = AllUsers.query.get(user_id)
 
         # Add your custom authorization check here
-        if current_user.is_authenticated and current_user.user_type != "admin":
+        if user and user.user_type != "admin":
             logger.warning('Unauthorized, only Admins can fetch pending reports')
             return jsonify({'message': 'Unauthorized, only Admins can fetch pending reports'}), 401
 
-        # Query all unique job_ids with pending reports
-        unique_job_ids = db.session.query(ProcessTable.job_id).filter(ProcessTable.approve_status == 'Pending').distinct().all()
+        entries = ProcessTable.query.filter_by(admin_id=user_id, approve_status='Pending').all()
 
         # Convert the query results to a list of dictionaries
-        result_data = []
-        for job_id_tuple in unique_job_ids:
-            job_id = job_id_tuple[0]
+        entries_by_group = defaultdict(lambda: {'date_time': '', 'vehicle_name': '', 'vehicle_parts': defaultdict(list)})
 
-            # Query all pending reports for the current job_id and current admin_id
-            pending_reports = ProcessTable.query.filter_by(job_id=job_id, admin_id=current_user.employee_id, approve_status='Pending').all()
+        for entry in entries:
+            entry_data = {
+                'id': entry.id,
+                'admin_id': entry.admin_id,
+                'operator_id': entry.operator_id,
+                'part_code_name': entry.part_code_name,
+                'part_code_requirement': entry.part_code_requirement,
+                'scan_output': entry.scan_output,
+                'result': entry.result,
+                'image': base64.b64encode(entry.image).decode('utf-8') if entry.image else None,
+                'approve_status': entry.approve_status
+            }
 
-            # Convert pending reports to a list of dictionaries
-            pending_reports_list = [
-                {
-                    'id': report.id,
-                    'admin_id': report.admin_id,
-                    'operator_id': report.operator_id,
-                    'date_time': report.date_time.isoformat(),
-                    'vehicle_name': report.vehicle_name,
-                    'vehicle_part': report.vehicle_part,
-                    'part_code_name': report.part_code_name,
-                    'part_code_requirement': report.part_code_requirement,
-                    'scan_output': report.scan_output,
-                    'result': report.result,
-                    'approve_status': report.approve_status,
-                    'image': base64.b64encode(report.image).decode('utf-8') if report.image else None,
-                }
-                for report in pending_reports
-            ]
+            entries_by_group[entry.job_id]['job_id'] = entry.job_id
+            entries_by_group[entry.job_id]['date_time'] = entry.date_time  # Corrected line
+            entries_by_group[entry.job_id]['vehicle_name'] = entry.vehicle_name
+            entries_by_group[entry.job_id]['vehicle_parts'][entry.vehicle_part].append(entry_data)
 
-            # Append the result for the current job_id to the main result list only if there are pending_reports
-            if pending_reports_list:
-                result_data.append({
-                    'job_id': job_id,
-                    'pending_reports': pending_reports_list,
-                })
+        # Convert entries_by_group to the desired format
+        result_data = list(entries_by_group.values())
 
-        logger.info('Get Pending Reports API called')
-        return jsonify({'result': result_data}), 200
+        logger.info('Get Pending Reports API returned')
+        return jsonify({'result': result_data, 'status': True}), 200
 
     except Exception as e:
         logger.error('An error occurred in Get Pending Reports API: {}'.format(str(e)))
         return jsonify({'error': str(e)}), 500
 
 
+
+
 #Admin Password Change
 @app.route('/modify_admin_password', methods=['PUT'])
-@login_required
+@jwt_required()
 def modify_admin_password():
     try:
         logger.info('Modify Admin password API called')
 
-        # Check if the current user is an admin
-        if current_user.user_type != "admin":
+        user_id = get_jwt_identity()
+
+        user = AllUsers.query.get(user_id)
+
+        # Add your custom authorization check here
+        if user and user.user_type != "admin":
             logger.warning('Unauthorized, only admins can modify passwords')
             return jsonify({'message': 'Unauthorized, only admins can modify passwords'}), 401
 
-        data = request.get_json()
-        employee_id = data.get('employee_id')
-        old_password = data.get('old_password')
-        new_password = data.get('new_password')
+        json_data = request.get_json()
+        data = json_data['data']
+        old_password = data.get('oldPassword')
+        new_password = data.get('newPassword')
 
         # Update the password only if the current user is an admin
-        updated_rows = AllUsers.query.filter_by(employee_id=current_user.employee_id, password=old_password).update({'password': new_password})
+        updated_rows = AllUsers.query.filter_by(employee_id=user.employee_id, password=old_password).update({'password': new_password})
         db.session.commit()
 
         if updated_rows > 0:
             logger.info('Admin password successfully updated') 
-            return jsonify({'message': 'Password modified successfully'}), 200
+            return jsonify({'message': 'Password modified successfully', 'status': True}), 200
         else:
             logger.warning('Invalid credentials or old password does not match')
             return jsonify({'message': 'Invalid credentials or old password does not match'}), 401
@@ -600,7 +635,102 @@ def modify_admin_password():
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/move_to_final/<job_id>', methods=['POST'])
+@jwt_required()
+def move_to_final(job_id):
+    try:
+        logger.info('Move to final table API called')
 
+        user_id = get_jwt_identity()
+
+        user = AllUsers.query.get(user_id)
+
+        # Add your custom authorization check here
+        if user and user.user_type != "admin":
+            logger.warning('Unauthorized, Admin aceess required.')
+            return jsonify({'message': 'Unauthorized, Admin aceess required.'}), 401
+        
+        # Check if all entries with the given job_id have either 'approved' or 'rejected' status
+        process_entries = ProcessTable.query.filter_by(job_id=job_id).all()
+        
+        if all(entry.approve_status in ['approved', 'rejected'] for entry in process_entries):
+            # Move entries to FinalTable
+            final_entries = []
+            for entry in process_entries:
+                final_entry = FinalTable(
+                    job_id=entry.job_id,
+                    admin_id=entry.admin_id,
+                    operator_id=entry.operator_id,
+                    date_time_operator=entry.date_time,
+                    date_time_admin=datetime.now(),
+                    vehicle_name=entry.vehicle_name,
+                    vehicle_part=entry.vehicle_part,
+                    part_code_name=entry.part_code_name,
+                    part_code_requirement=entry.part_code_requirement,
+                    scan_output=entry.scan_output,
+                    result=entry.result,
+                    image=entry.image,
+                    approve_status=entry.approve_status
+                )
+                final_entries.append(final_entry)
+            
+            # Add entries to FinalTable
+            db.session.add_all(final_entries)
+            db.session.commit()
+
+            # Delete entries from ProcessTable
+            for entry in process_entries:
+                db.session.delete(entry)
+            db.session.commit()
+
+            return jsonify({'message': 'Rows moved to FinalTable successfully'}), 200
+        else:
+            return jsonify({'message': 'Not all entries have approved or rejected status'}), 400
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+
+@app.route('/reinspect_reports', methods=['POST'])
+@jwt_required()
+def reinspect_reports():
+    try:
+        logger.info('Reinspect Reports API called')
+
+        user_id = get_jwt_identity()
+
+        # Check if the user is an admin or super_user
+        user = AllUsers.query.get(user_id)
+        if user.user_type != "admin":
+            logger.warning('Unauthorized, only Admins can update approve status') 
+            return jsonify({'message': 'Unauthorized, only Admins can update approve status'}), 401
+
+        data = request.get_json()
+        job_id = data.get('job_id')
+        print(job_id)
+        vehicle_part_id = data.get('vehicle_part_id', [])
+        print(vehicle_part_id)
+
+        # Validate if job_id and vehicle_part_ids are present in the request body
+        if not job_id or not vehicle_part_id:
+            return jsonify({'message': 'Please provide both job_id and vehicle_part_ids'}), 400
+
+        # Update the approve_status to 'Reinspect' for the specified job_id and vehicle_part_ids
+        ProcessTable.query.filter(
+            ProcessTable.job_id == job_id,
+            ProcessTable.vehicle_part_id.in_(vehicle_part_id)
+        ).update({'approve_status': 'Reinspect'}, synchronize_session=False)
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        logger.info('Update Approve Status API successfully processed')
+        return jsonify({'message': 'Approve status updated successfully'}), 200
+
+    except Exception as e:
+        logger.error('An error occurred in Update Approve Status API: {}'.format(str(e)))
+        return jsonify({'error': str(e)}), 500
 
 
 
@@ -642,6 +772,7 @@ def index():
     db.session.commit()
 
     return 'Process added to the database!'
+
 
 
 

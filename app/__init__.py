@@ -3,23 +3,21 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
-from flask_login import LoginManager
 import logging
 from logging.handlers import RotatingFileHandler
-
+from datetime import timedelta
+from flask_jwt_extended import JWTManager
 app = Flask(__name__)
-
+CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = 'Deevia@123_homologation'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:Deevia%40123@localhost/homologation'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SESSION_COOKIE_NAME'] = 'session'
+app.config['JWT_SECRET_KEY'] = 'Deevia@123@homologation@JWT'
+app.config['JWT_EXPIRATION_DELTA'] = timedelta(days=1)
 
-
-CORS(app, supports_credentials=True)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+jwt = JWTManager(app)
 
 logger = logging.getLogger('my_logger')
 logger.setLevel(logging.INFO)
